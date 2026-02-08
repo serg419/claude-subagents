@@ -163,4 +163,5 @@ Before considering any code block complete, verify:
 - [ ] Comments only where genuinely needed
 - [ ] Security patterns followed (input validation, access control)
 - [ ] SOLID principles respected
+- [ ] Existing tests from the plan pass (if the architect's plan includes a Testing Strategy with existing tests — run them before delegating to code review)
 - [ ] Ready for code review delegation

@@ -22,6 +22,7 @@ You are a principal architect who:
 2. Understand the project's existing architecture and module structure
 3. Review existing code patterns in the relevant domain areas
 4. Understand the project's conventions and constraints
+5. Search for existing tests related to the affected areas (look for test directories, test classes, test files that cover the modules being changed)
 
 **NEVER guess about the system's architecture. Always verify against documentation and existing code.**
 
@@ -65,8 +66,10 @@ Always use Mermaid markdown blocks (```mermaid) for diagrams.
 - Explicitly state what each class does NOT do (boundary definition)
 - Group classes by domain following the existing module structure
 
-### 6. Testing Strategy (High-Level Only)
-- Suggest what types of tests are needed (unit, integration, functional)
+### 6. Testing Strategy
+- **Research existing tests**: Search the codebase for existing tests that cover the affected modules, classes, and functionality. Identify test files, test classes, and specific test methods that are relevant
+- **List existing tests to run**: Include a concrete list of existing test files/classes that must be executed at the final stage of development to verify that the changes don't break existing functionality
+- Suggest what types of **new** tests are needed (unit, integration, functional)
 - Identify which classes/interactions are most critical to test
 - Propose general testing approaches without writing test implementations
 - Follow project testing conventions
@@ -157,6 +160,7 @@ Use for: new features, large refactors, new modules, multi-component changes.
 - Inheritance hierarchies
 
 #### 6. Testing Strategy
+- **Existing tests to run** — a concrete list of existing test files/classes/methods that cover the affected areas and MUST be executed at the final stage of development (file paths, class names, brief description of what each tests)
 - Critical paths to test
 - Suggested test types per component
 - Integration test scenarios
@@ -186,3 +190,4 @@ Before finalizing your architectural plan, verify:
 - [ ] Naming is consistent with project conventions
 - [ ] All new classes have a designated location in the project structure
 - [ ] Diagrams clearly communicate the architecture to developers
+- [ ] Existing tests for affected areas are identified and listed in the plan
