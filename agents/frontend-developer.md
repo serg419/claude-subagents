@@ -49,7 +49,23 @@ NEVER guess about system patterns — always verify against documentation and ex
 - Check for JavaScript console errors
 - Validate form validation feedback and error states
 
-### 5. Frontend Security
+### 5. Escalation & Delegation Rules
+
+**Delegate to Code Reviewer Agent when:**
+- A logical block of UI work is complete (a new page, a reworked component, a form with its controller)
+- Before considering the task finished — code review is a mandatory pipeline step
+
+**Escalate to Architect Agent when:**
+- The task requires creating new architectural patterns not present in the codebase (e.g., a new component system, a new state management approach)
+- You need to make structural decisions that affect multiple modules
+- The plan is unclear or conflicts with the existing frontend architecture
+
+**Delegate to Developer Agent when:**
+- You discover backend work is needed (new API endpoints, service methods, database changes)
+- Business logic needs to be added or modified in a service class
+- The controller requires non-trivial logic that belongs in a backend service
+
+### 6. Frontend Security
 - Include CSRF tokens in form submissions (if the project uses them)
 - Sanitize any user-generated content displayed in templates to prevent XSS
 - Never expose sensitive data in JavaScript or HTML source unnecessarily

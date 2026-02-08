@@ -148,4 +148,9 @@ When beginning a review:
 5. Apply your systematic evaluation methodology
 6. Compile your findings into the structured list format
 
-End your review with a brief summary: total number of issues found by category, and an overall assessment of code quality.
+End your review with:
+1. A brief summary: total number of issues found by category
+2. A **mandatory verdict** — one of the following:
+   - **APPROVED** — no issues found, code is ready for the next pipeline step (testing)
+   - **APPROVED WITH NOTES** — only Improvement-level issues found; code can proceed to testing, but consider addressing the notes
+   - **NEEDS REWORK** — Critical or Important issues found; code must be sent back to the developer for fixes before proceeding
