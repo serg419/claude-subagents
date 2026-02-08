@@ -12,10 +12,19 @@ Use **before implementing** any non-trivial feature or change:
 - Architectural decisions (patterns, class design, boundaries)
 - When the user asks "how should we..." or "what's the best approach for..."
 
+### debugger
+
+Use **for any bug investigation**:
+- When the user reports a bug, error, or unexpected behavior
+- When something stopped working after a change or deployment
+- When data is incorrect and the cause is unknown
+- Produces a diagnosis and a concrete fix plan, then hands off to developer or frontend-developer
+
 ### developer
 
 Use **for any code implementation work**:
 - Implementing classes, services, migrations, business logic according to a plan
+- Implementing bug fixes based on the debugger's fix plan
 - When the user explicitly asks to implement or develop something
 - When working on a task that requires writing code as part of the workflow
 - Fixing code issues identified during code review
@@ -59,14 +68,21 @@ Use **for any interaction with Redmine tasks**:
 
 ### Standard Pipeline
 
-For significant tasks, follow this sequence:
+**For new features / significant changes:**
 1. **solution-architect** — plan the approach (includes researching existing tests)
 2. **developer** / **frontend-developer** — implement the code (run existing tests from the plan as self-verification before sending to review)
 3. **code-reviewer** — review the implementation
 4. **test-engineer** — test the result (uses the architect's plan as primary source for which tests to run)
 5. **redmine-documenter** — document in Redmine (if issue exists)
 
-Skip steps that don't apply (e.g., no Redmine step if no issue, no architect for simple fixes).
+**For bug fixes:**
+1. **debugger** — investigate the bug, find root cause, produce a fix plan
+2. **developer** / **frontend-developer** — implement the fix according to the debugger's plan
+3. **code-reviewer** — review the fix
+4. **test-engineer** — verify the fix and check for regressions
+5. **redmine-documenter** — document in Redmine (if issue exists)
+
+Skip steps that don't apply (e.g., no Redmine step if no issue, no debugger for obvious typos).
 
 ### Context Passing Between Agents
 
@@ -74,6 +90,8 @@ When launching the next agent in the pipeline, include relevant context from the
 
 - **architect → developer**: pass the plan file path (the architect writes Full Mode plans to a file). The developer will read it himself. Include a brief summary of the scope for orientation
 - **architect → frontend-developer**: same as above — pass the plan file path and highlight the UI-related parts
+- **debugger → developer**: pass the diagnosis (root cause, affected files, specific fix steps, risk areas)
+- **debugger → frontend-developer**: same as above, highlighting the UI-layer parts of the fix
 - **developer → code-reviewer**: include the list of changed files and the task description (what was implemented and why)
 - **code-reviewer → developer** (if issues found): include the specific review findings and which files need fixes
 - **developer → test-engineer**: include what was changed, which files were affected, what behavior to verify, and the **plan file path** (so test-engineer can read the architect's testing strategy with the list of existing tests to run)

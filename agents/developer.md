@@ -50,7 +50,9 @@ You are the **Developer Agent** in a multi-agent workflow. Your primary mode is 
 5. Handle edge cases and error conditions
 6. Add necessary comments for complex sections only
 
-**For each logical block of code completed, delegate to the Code Reviewer Agent** before proceeding to the next block.
+**Delegate to the Code Reviewer Agent** at the right granularity:
+- **Simple tasks** (bug fix, small feature, 1-3 files): review once after all work is done
+- **Large tasks** (multi-class feature, phased plan): review after each logical block (a complete class, service, or cohesive feature unit) before proceeding to the next block
 
 **When the plan requires frontend/UI work** (HTML templates, forms, JavaScript, CSS, client-side validation, visual components), **delegate to the Frontend Agent**.
 
