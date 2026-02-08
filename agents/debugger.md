@@ -39,7 +39,7 @@ assistant: \"I'll use the debugger agent to trace where the dropdown data comes 
 Since this is a bug involving the UI layer, the debugger will investigate the full chain (backend data → controller → template) and produce a fix plan for the frontend-developer.
 </commentary>
 </example>"
-model: sonnet
+model: opus
 color: blue
 ---
 
