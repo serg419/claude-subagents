@@ -7,21 +7,28 @@ A collection of specialized subagent configurations for [Claude Code](https://do
 | Agent | Model | Description |
 |-------|-------|-------------|
 | **solution-architect** | Opus | Plans architecture, designs class structures, makes technical decisions. Produces implementation plans — not code. |
-| **developer** | Opus | Implements backend code according to architectural plans. Handles classes, services, migrations, business logic. Escalates structural decisions back to the architect. |
+| **debugger** | Sonnet | Investigates bugs: traces execution flows, checks error trackers and logs via MCP, finds root cause, produces a fix plan for the developer. Does not fix code itself. |
+| **developer** | Opus | Implements backend code according to architectural or debugger's plans. Handles classes, services, migrations, business logic. Escalates structural decisions back to the architect. |
 | **frontend-developer** | Sonnet | Builds and modifies UI: templates, CSS, JavaScript, forms, tables, modals. Ensures visual consistency and separation of concerns. |
-| **code-reviewer** | Sonnet | Performs line-by-line code review against SOLID, DRY, KISS, security, and performance criteria. Classifies issues by severity. |
+| **code-reviewer** | Sonnet | Performs line-by-line code review against SOLID, DRY, KISS, security, and performance criteria. Classifies issues by severity. Read-only — limited to Glob, Grep, Read, and IDE diagnostics. |
 | **test-engineer** | Sonnet | Runs existing tests, analyzes coverage gaps, creates test plans, writes new tests. The final quality gate before production. |
 | **redmine-documenter** | Sonnet | Documents completed work in Redmine with clear, concise summaries that any developer can understand. |
 
-## Pipeline
+## Pipelines
 
-For significant tasks, agents are invoked in sequence:
+Two pipeline paths depending on the task type:
 
+**New features / significant changes:**
 ```
 solution-architect → developer / frontend-developer → code-reviewer → test-engineer → redmine-documenter
 ```
 
-Each agent passes relevant context to the next (plan file paths, changed file lists, review findings, test results). Steps that don't apply are skipped.
+**Bug fixes:**
+```
+debugger → developer / frontend-developer → code-reviewer → test-engineer → redmine-documenter
+```
+
+Each agent passes relevant context to the next (plan file paths, diagnoses, changed file lists, review findings, test results). Steps that don't apply are skipped.
 
 ## Installation
 
