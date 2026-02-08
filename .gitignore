@@ -1,5 +1,6 @@
 *
 !.gitignore
 !CLAUDE.md
+!README.md
 !agents/
 !agents/*.md
