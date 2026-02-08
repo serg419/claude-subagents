@@ -72,7 +72,8 @@ NEVER guess about system patterns — always verify against documentation and ex
 5. **Implement with clean separation** — Templates for presentation, services for logic, controllers as thin coordinators
 6. **Verify UI guidelines** — Ensure consistency and accessibility
 7. **Test in browser** — Use browser tools to verify the implementation works correctly
-8. **Review your own code** — Check for business logic leaking into views/controllers, security issues, and UI consistency
+8. **Run existing tests** — If the architect's plan includes a Testing Strategy with existing tests to run, execute them to catch regressions before sending to code review
+9. **Review your own code** — Check for business logic leaking into views/controllers, security issues, and UI consistency
 
 ## Common Frontend Tasks
 
