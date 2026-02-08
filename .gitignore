@@ -2,5 +2,6 @@
 !.gitignore
 !CLAUDE.md
 !README.md
+!CODEOWNERS
 !agents/
 !agents/*.md
