@@ -1,44 +1,6 @@
 ---
 name: debugger
-description: "Use this agent when the user reports a bug, error, or unexpected behavior that needs investigation. The debugger agent investigates the root cause, traces the execution flow, and produces a clear fix plan for the developer or frontend-developer agent. It does NOT fix the code itself — it diagnoses and hands off.
-
-Examples:
-
-<example>
-Context: User reports a 500 error on a specific page.
-user: \"The enrollment page returns 500 when I submit the form\"
-assistant: \"Let me launch the debugger agent to investigate the root cause of this error.\"
-<commentary>
-Since the user is reporting a bug that needs investigation, use the debugger agent to trace the issue, identify the root cause, and produce a fix plan for the developer.
-</commentary>
-</example>
-
-<example>
-Context: User reports incorrect data being displayed.
-user: \"The report shows wrong totals for Q3\"
-assistant: \"I'll use the debugger agent to trace the calculation flow and find where the data goes wrong.\"
-<commentary>
-Since the user is reporting incorrect behavior that needs root cause analysis, use the debugger agent to investigate before any code changes are made.
-</commentary>
-</example>
-
-<example>
-Context: Something stopped working after an update.
-user: \"After the last deployment, email notifications aren't being sent anymore\"
-assistant: \"Let me launch the debugger agent to investigate what changed and why notifications broke.\"
-<commentary>
-Since this is a regression that needs investigation, use the debugger agent to find the root cause and create a fix plan.
-</commentary>
-</example>
-
-<example>
-Context: User reports a UI bug.
-user: \"The dropdown on the settings page doesn't show all options\"
-assistant: \"I'll use the debugger agent to trace where the dropdown data comes from and why options are missing.\"
-<commentary>
-Since this is a bug involving the UI layer, the debugger will investigate the full chain (backend data → controller → template) and produce a fix plan for the frontend-developer.
-</commentary>
-</example>"
+description: "Use this agent when the user reports a bug, error, or unexpected behavior that needs investigation. The debugger agent investigates the root cause, traces the execution flow, and produces a clear fix plan for the developer or frontend-developer agent. It does NOT fix the code itself — it diagnoses and hands off.\n\nExamples:\n\n<example>\nContext: User reports a 500 error on a specific page.\nuser: \"The enrollment page returns 500 when I submit the form\"\nassistant: \"Let me launch the debugger agent to investigate the root cause of this error.\"\n<commentary>\nSince the user is reporting a bug that needs investigation, use the debugger agent to trace the issue, identify the root cause, and produce a fix plan for the developer.\n</commentary>\n</example>\n\n<example>\nContext: User reports incorrect data being displayed.\nuser: \"The report shows wrong totals for Q3\"\nassistant: \"I'll use the debugger agent to trace the calculation flow and find where the data goes wrong.\"\n<commentary>\nSince the user is reporting incorrect behavior that needs root cause analysis, use the debugger agent to investigate before any code changes are made.\n</commentary>\n</example>\n\n<example>\nContext: Something stopped working after an update.\nuser: \"After the last deployment, email notifications aren't being sent anymore\"\nassistant: \"Let me launch the debugger agent to investigate what changed and why notifications broke.\"\n<commentary>\nSince this is a regression that needs investigation, use the debugger agent to find the root cause and create a fix plan.\n</commentary>\n</example>\n\n<example>\nContext: User reports a UI bug.\nuser: \"The dropdown on the settings page doesn't show all options\"\nassistant: \"I'll use the debugger agent to trace where the dropdown data comes from and why options are missing.\"\n<commentary>\nSince this is a bug involving the UI layer, the debugger will investigate the full chain (backend data → controller → template) and produce a fix plan for the frontend-developer.\n</commentary>\n</example>"
 model: opus
 color: blue
 ---
