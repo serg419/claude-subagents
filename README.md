@@ -32,26 +32,38 @@ Each agent passes relevant context to the next (plan file paths, diagnoses, chan
 
 ## Installation
 
-Clone the repo into your Claude Code config directory:
+**Option 1: Clone directly as your config directory** (recommended)
 
 ```bash
 # Back up existing config if needed
-cp ~/.claude/CLAUDE.md ~/.claude/CLAUDE.md.bak
+cp -r ~/.claude ~/.claude.bak
 
-# Clone
-git clone git@github.com:serg419/claude-subagents.git ~/.claude-subagents
-
-# Symlink or copy the files
-cp ~/.claude-subagents/CLAUDE.md ~/.claude/CLAUDE.md
-cp -r ~/.claude-subagents/agents/ ~/.claude/agents/
+# Clone the repo as ~/.claude
+git clone git@github.com:serg419/claude-subagents.git ~/.claude
 ```
 
-Or, if `~/.claude/` is already this repo:
+To update later:
 
 ```bash
 cd ~/.claude
 git pull
 ```
+
+**Option 2: Copy files into an existing config directory**
+
+```bash
+# Clone to a separate location
+git clone git@github.com:serg419/claude-subagents.git ~/.claude-subagents
+
+# Back up existing config if needed
+cp ~/.claude/CLAUDE.md ~/.claude/CLAUDE.md.bak
+
+# Copy the files
+cp ~/.claude-subagents/CLAUDE.md ~/.claude/CLAUDE.md
+cp -r ~/.claude-subagents/agents/ ~/.claude/agents/
+```
+
+> **Note:** Symlinks (`ln -s`) are not supported — Claude Code may not follow symbolic links when discovering agent files. Use direct copies instead.
 
 ## Customization
 
