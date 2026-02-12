@@ -1,5 +1,5 @@
 ---
-description: Launch a full agent team pipeline for a new feature (architect → developer → reviewer → tester)
+description: Launch a full agent team pipeline for a new feature (architect → backend-developer → reviewer → tester)
 argument-hint: <feature description>
 ---
 
@@ -27,7 +27,7 @@ Use `TeamCreate` with the derived `team_name`.
 Use `TaskCreate` to create tasks. Adjust based on your analysis:
 
 1. **Plan the approach** — architect designs the implementation
-2. **Implement backend** — developer codes the backend (blockedBy: plan)
+2. **Implement backend** — backend-developer codes the backend (blockedBy: plan)
 3. **Implement frontend** — frontend-developer codes the UI (blockedBy: plan, parallel with backend) — *only if frontend work needed*
 4. **Review the implementation** — code-reviewer reviews all changes (blockedBy: backend + frontend)
 5. **Test the result** — test-engineer verifies the implementation (blockedBy: review)
@@ -49,9 +49,9 @@ Spawn agents **on demand** — only when their task becomes unblocked. This save
 Act as team lead — spawn each agent right before assigning them work:
 
 ### When architect completes the plan:
-1. Spawn `name: "dev"`, `subagent_type: "developer"`
-2. Send dev: plan file path + brief scope summary (highlight backend parts)
-3. Assign **Implement backend** task to dev
+1. Spawn `name: "backend-dev"`, `subagent_type: "backend-developer"`
+2. Send backend-dev: plan file path + brief scope summary (highlight backend parts)
+3. Assign **Implement backend** task to backend-dev
 4. If frontend work needed:
    - Spawn `name: "frontend-dev"`, `subagent_type: "frontend-developer"` **in parallel**
    - Send frontend-dev: plan file path + brief scope summary (highlight frontend parts)
@@ -64,24 +64,24 @@ Spawn `name: "reviewer"`, `subagent_type: "code-reviewer"` **together with devel
 
 ### Incremental code review during development:
 
-Developers (dev and frontend-dev) can request code review **after each completed logical block** — not only at the end. When a developer reports a block is done:
+Developers (backend-dev and frontend-dev) can request code review **after each completed logical block** — not only at the end. When a developer reports a block is done:
 1. Send reviewer: changed files for this block + what was done
-2. If reviewer finds issues → send findings back to the developer, developer fixes, reviewer re-checks
-3. Once block is approved → developer continues to the next block
+2. If reviewer finds issues → send findings back to the developer, the developer fixes, reviewer re-checks
+3. Once block is approved → the developer continues to the next block
 
 This catches problems early and avoids large rework at the final review stage.
 
-### When developer (and frontend-dev if applicable) completes all work:
+### When backend-dev (and frontend-dev if applicable) completes all work:
 1. Send reviewer: full list of changed files + summary of what was implemented and why
 2. Assign **Review** task to reviewer for the **final review**
-3. Shut down dev (and frontend-dev): `shutdown_request`
+3. Shut down backend-dev (and frontend-dev): `shutdown_request`
 
 ### When final review completes:
 - **If issues found**:
   1. Create a new **Fix review issues** task
-  2. Re-spawn dev (and/or frontend-dev depending on which files need fixes)
-  3. Send dev/frontend-dev: reviewer's findings — specific files, line numbers, what to fix
-  4. When fix is done → shut down dev/frontend-dev, send changes back to reviewer for re-check
+  2. Re-spawn backend-dev (and/or frontend-dev depending on which files need fixes)
+  3. Send backend-dev/frontend-dev: reviewer's findings — specific files, line numbers, what to fix
+  4. When fix is done → shut down backend-dev/frontend-dev, send changes back to reviewer for re-check
   5. Repeat until reviewer approves (max 3 rounds — if still failing, escalate to user)
 - **If approved**:
   1. Spawn `name: "tester"`, `subagent_type: "test-engineer"`
@@ -91,9 +91,9 @@ This catches problems early and avoids large rework at the final review stage.
 ### When tester completes:
 - **If tests fail**:
   1. Create a new **Fix test failures** task
-  2. Re-spawn dev (and/or frontend-dev depending on the failures)
-  3. Send dev/frontend-dev: failing tests, errors, expected vs actual
-  4. When fix is done → shut down dev/frontend-dev, send changes to reviewer for quick re-check, then re-run tester
+  2. Re-spawn backend-dev (and/or frontend-dev depending on the failures)
+  3. Send backend-dev/frontend-dev: failing tests, errors, expected vs actual
+  4. When fix is done → shut down backend-dev/frontend-dev, send changes to reviewer for quick re-check, then re-run tester
   5. Repeat until tests pass (max 3 rounds — if still failing, escalate to user)
 - **If tests pass**:
   1. If Redmine issue exists: spawn `name: "documenter"`, `subagent_type: "redmine-documenter"`, assign **Document** task
@@ -107,6 +107,6 @@ This catches problems early and avoids large rework at the final review stage.
 ## Important
 
 - Do NOT skip the architect step — even for "simple" features, a plan prevents rework
-- If the reviewer finds issues, create fix tasks and loop back to the developer before moving to testing
-- If tests fail due to code bugs, send findings back to the developer for fixing
+- If the reviewer finds issues, create fix tasks and loop back to the backend-developer before moving to testing
+- If tests fail due to code bugs, send findings back to the backend-developer for fixing
 - Keep the user informed of progress at key milestones (plan ready, implementation done, review passed, tests passed)

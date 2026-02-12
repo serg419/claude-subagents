@@ -60,7 +60,7 @@ NEVER guess about system patterns — always verify against documentation and ex
 - You need to make structural decisions that affect multiple modules
 - The plan is unclear or conflicts with the existing frontend architecture
 
-**Delegate to Developer Agent when:**
+**Delegate to Backend Developer Agent when:**
 - You discover backend work is needed (new API endpoints, service methods, database changes)
 - Business logic needs to be added or modified in a service class
 - The controller requires non-trivial logic that belongs in a backend service
