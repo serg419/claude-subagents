@@ -5,3 +5,5 @@
 !CODEOWNERS
 !agents/
 !agents/*.md
+!commands/
+!commands/*.md
