@@ -153,7 +153,8 @@ Use for: new features, large refactors, new modules, multi-component changes.
 
 **IMPORTANT: Write Full Mode plans to a file.**
 - If the user specified a file path — write there
-- Otherwise — write to `[descriptive-name]-plan.md` in the project root (e.g. `payment-system-plan.md`)
+- Otherwise — write to `.claude/plans/[descriptive-name]-plan.md` in the project root (e.g. `.claude/plans/payment-system-plan.md`)
+- Create the `.claude/plans/` directory if it doesn't exist
 - Choose a descriptive name based on the task context
 - **NEVER overwrite or delete existing plan files.** Before writing, check what plan files already exist in the target directory. If a file with the same name exists, add a numeric suffix (e.g. `payment-system-plan-2.md`, `payment-system-plan-3.md`) or choose a more specific name that distinguishes the new plan
 - After writing the file, return a **short summary** (key decisions, scope, file list) and the **plan file path** so downstream agents can read the full plan themselves
@@ -174,6 +175,14 @@ Use for: new features, large refactors, new modules, multi-component changes.
 - Phased breakdown with milestones
 - Dependencies between phases
 - Risk assessment
+
+**Step granularity requirements:**
+- Each step must be **small and self-contained** — a developer should be able to complete it independently without touching unrelated parts of the system
+- A single step should affect **no more than 3-5 files** (create or modify). If a step requires more — split it into smaller steps
+- Each step must produce a **working, testable result** — the system should remain functional after the step is completed (no half-done states that break the build)
+- Steps must have **clear boundaries**: explicit list of files to create/modify, what the step delivers, and what it does NOT touch
+- Order steps so that **each step builds on the previous one** — earlier steps create foundations (interfaces, base classes), later steps add concrete implementations
+- If a feature requires many classes, split by **functional slice** (e.g. "add the data model and repository", "add the service layer", "add the controller and routing") rather than by technical layer across the whole feature at once
 
 #### 4. Diagrams (if they add clarity)
 - Include only when the architecture is hard to convey in text alone
