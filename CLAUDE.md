@@ -60,11 +60,14 @@ Use **for any testing needs**:
 
 ### redmine-documenter
 
-Use **for any interaction with Redmine tasks**:
-- When the user asks to read, update, or comment on a Redmine issue
-- When working on a task or plan that references a Redmine issue
-- After a feature, bug fix, or task is completed and needs to be recorded
-- To consolidate results from multiple agents into a Redmine update
+Use **for write operations in Redmine** (creating, updating, commenting, documenting):
+- Updating or commenting on Redmine issues
+- Documenting completed work, bug fixes, features
+- Creating new issues or subtasks
+- Any operation that **modifies** Redmine data — always delegate to this agent
+- It strictly follows project conventions from `docs/mcp/redmine.md`
+
+**Reading Redmine issues does NOT require this agent** — use Redmine MCP tools directly in the main context or any agent that needs the data.
 
 ### Standard Pipeline
 
@@ -97,6 +100,17 @@ When launching the next agent in the pipeline, include relevant context from the
 - **backend-developer → test-engineer**: include what was changed, which files were affected, what behavior to verify, and the **plan file path** (so test-engineer can read the architect's testing strategy with the list of existing tests to run)
 - **test-engineer → backend-developer** (if tests fail): include failing test names, error messages, and expected vs actual behavior
 
+## Project-Specific Commands
+
+### gegi-monolith: Running Tests
+
+```bash
+docker exec -e XDEBUG_MODE=coverage gegi-monolith-rcdemo.gegi.co ./ge.php run tests --tests=TestClassName.php
+```
+
+- Replace `TestClassName.php` with the actual test class name (e.g., `TuitionBillsConfirmTest.php`)
+- Multiple tests: `--tests=Test1.php,Test2.php`
+
 ## Language
 
 - Chat responses: use the same language the user writes in
@@ -110,3 +124,61 @@ When launching the next agent in the pipeline, include relevant context from the
 
 1. **File issues for remaining work** - Create issues for anything that needs follow-up
 2. **Run quality gates** (if code changed) - Tests, linters, builds
+
+<!-- bv-agent-instructions-v1 -->
+
+---
+
+## Beads Workflow Integration
+
+This project uses [beads_viewer](https://github.com/Dicklesworthstone/beads_viewer) for issue tracking. Issues are stored in `.beads/` and tracked in git.
+
+### Essential Commands
+
+```bash
+# View issues (launches TUI - avoid in automated sessions)
+bv
+
+# CLI commands for agents (use these instead)
+bd ready              # Show issues ready to work (no blockers)
+bd list --status=open # All open issues
+bd show <id>          # Full issue details with dependencies
+bd create --title="..." --type=task --priority=2
+bd update <id> --status=in_progress
+bd close <id> --reason="Completed"
+bd close <id1> <id2>  # Close multiple issues at once
+bd sync               # Commit and push changes
+```
+
+### Workflow Pattern
+
+1. **Start**: Run `bd ready` to find actionable work
+2. **Claim**: Use `bd update <id> --status=in_progress`
+3. **Work**: Implement the task
+4. **Complete**: Use `bd close <id>`
+5. **Sync**: Always run `bd sync` at session end
+
+### Key Concepts
+
+- **Dependencies**: Issues can block other issues. `bd ready` shows only unblocked work.
+- **Priority**: P0=critical, P1=high, P2=medium, P3=low, P4=backlog (use numbers, not words)
+- **Types**: task, bug, feature, epic, question, docs
+- **Blocking**: `bd dep add <issue> <depends-on>` to add dependencies
+
+### Best Practices
+
+- Check `bd ready` at session start to find available work
+- Update status as you work (in_progress → closed)
+- Create new issues with `bd create` when you discover tasks
+- Use descriptive titles and set appropriate priority/type
+- Always `bd sync` before ending session
+
+### Creating Tasks from Implementation Plans
+
+Each bd task must be self-contained enough to implement without reading the entire plan:
+
+- Add `--notes` with a reference to the plan file and section (e.g., `"See plan.md — Section 'Step 3' (lines 120-180)"`)
+- List key deliverables: files to create/modify, classes, method signatures
+- Note shared artifacts if the task creates something used by later tasks
+
+<!-- end-bv-agent-instructions -->
