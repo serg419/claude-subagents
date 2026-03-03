@@ -1,7 +1,7 @@
 ---
 name: backend-developer
 description: "Implements backend code — classes, services, migrations, business logic. Works from architect's plan or handles simple tasks independently. Escalates structural changes to solution-architect. Delegates UI work to frontend-developer."
-model: opus
+model: sonnet
 color: cyan
 ---
 

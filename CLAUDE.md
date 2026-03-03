@@ -71,34 +71,11 @@ Use **for write operations in Redmine** (creating, updating, commenting, documen
 
 ### Standard Pipeline
 
-**For new features / significant changes:**
-1. **solution-architect** — plan the approach (includes researching existing tests)
-2. **backend-developer** / **frontend-developer** — implement the code (run existing tests from the plan as self-verification before sending to review)
-3. **code-reviewer** — review the implementation
-4. **test-engineer** — test the result (uses the architect's plan as primary source for which tests to run)
-5. **redmine-documenter** — document in Redmine (if issue exists)
+**For new features / significant changes:** follow the `/feature` command pipeline — architect → developer → reviewer → tester → redmine-documenter (if issue exists)
 
-**For bug fixes:**
-1. **debugger** — investigate the bug, find root cause, produce a fix plan
-2. **backend-developer** / **frontend-developer** — implement the fix according to the debugger's plan
-3. **code-reviewer** — review the fix
-4. **test-engineer** — verify the fix and check for regressions
-5. **redmine-documenter** — document in Redmine (if issue exists)
+**For bug fixes:** follow the `/bugfix` command pipeline — debugger → developer → reviewer → tester → redmine-documenter (if issue exists)
 
 Skip steps that don't apply (e.g., no Redmine step if no issue, no debugger for obvious typos).
-
-### Context Passing Between Agents
-
-When launching the next agent in the pipeline, include relevant context from the previous step:
-
-- **architect → backend-developer**: pass the plan file path (the architect writes Full Mode plans to a file). The backend-developer will read it himself. Include a brief summary of the scope for orientation
-- **architect → frontend-developer**: same as above — pass the plan file path and highlight the UI-related parts
-- **debugger → backend-developer**: pass the diagnosis (root cause, affected files, specific fix steps, risk areas)
-- **debugger → frontend-developer**: same as above, highlighting the UI-layer parts of the fix
-- **backend-developer → code-reviewer**: include the list of changed files and the task description (what was implemented and why)
-- **code-reviewer → backend-developer** (if issues found): include the specific review findings and which files need fixes
-- **backend-developer → test-engineer**: include what was changed, which files were affected, what behavior to verify, and the **plan file path** (so test-engineer can read the architect's testing strategy with the list of existing tests to run)
-- **test-engineer → backend-developer** (if tests fail): include failing test names, error messages, and expected vs actual behavior
 
 ## Language
 
