@@ -1,7 +1,7 @@
 ---
 name: debugger
 description: "Investigates bugs, errors, and unexpected behavior. Traces execution flow, finds root cause, and produces a fix plan for the developer agent. Does NOT fix code itself — diagnoses and hands off."
-model: sonnet
+model: opus
 memory: local
 color: blue
 ---

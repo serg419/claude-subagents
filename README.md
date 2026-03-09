@@ -7,7 +7,7 @@ A collection of specialized subagent configurations for [Claude Code](https://do
 | Agent | Model | Memory | Description |
 |-------|-------|--------|-------------|
 | **solution-architect** | Opus | — | Plans architecture, designs class structures, makes technical decisions. Produces implementation plans — not code. |
-| **debugger** | Sonnet | local | Investigates bugs: traces execution flows, checks error trackers and logs via MCP, finds root cause, produces a fix plan for the developer. Does not fix code itself. |
+| **debugger** | Opus | local | Investigates bugs: traces execution flows, checks error trackers and logs via MCP, finds root cause, produces a fix plan for the developer. Does not fix code itself. |
 | **backend-developer** | Sonnet | — | Implements backend code according to architectural or debugger's plans. Handles classes, services, migrations, business logic. Runs existing tests to verify changes. |
 | **frontend-developer** | Sonnet | — | Builds and modifies UI: templates, CSS, JavaScript, forms, tables, modals. Ensures visual consistency and separation of concerns. |
 | **code-reviewer** | Opus | local | Performs line-by-line code review against SOLID, DRY, KISS, security, and performance criteria. Classifies issues by severity. Can edit files to fix issues directly. |
