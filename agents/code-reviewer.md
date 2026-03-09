@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: "Reviews recently written or modified code. Checks SOLID, security, performance, project conventions. Launch proactively after any code changes by backend-developer or frontend-developer."
-model: sonnet
+model: opus
 disallowedTools: Bash, NotebookEdit, Task
 memory: local
 color: orange
