@@ -50,9 +50,11 @@ Launch `code-reviewer` agent with:
 2. Re-launch `code-reviewer` agent with updated changed files
 3. Repeat until approved (max 3 rounds — if still failing, stop and report to user)
 
-## Step 5: Test (test-engineer)
+## Step 5: Test (test-engineer) — only if plan requires new tests
 
-Launch `test-engineer` agent with:
+Review the architect's plan. Launch `test-engineer` **only** if the plan explicitly includes writing new tests for this feature.
+
+If yes — launch `test-engineer` agent with:
 - What was changed and which files were affected
 - What behavior to verify
 - The plan file path (so the tester can read the architect's testing strategy)
@@ -62,6 +64,8 @@ Launch `test-engineer` agent with:
 2. Re-launch `code-reviewer` agent for a quick re-check
 3. Re-launch `test-engineer` agent to verify the fix
 4. Repeat until tests pass (max 3 rounds — if still failing, stop and report to user)
+
+If no — skip this step. Existing tests are already run by the developer agents during implementation.
 
 ## Step 6: Document in Redmine (if issue exists)
 
