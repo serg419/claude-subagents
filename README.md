@@ -12,14 +12,13 @@ A collection of specialized subagent configurations for [Claude Code](https://do
 | **frontend-developer** | Sonnet | — | Builds and modifies UI: templates, CSS, JavaScript, forms, tables, modals. Ensures visual consistency and separation of concerns. |
 | **code-reviewer** | Opus | local | Performs line-by-line code review against SOLID, DRY, KISS, security, and performance criteria. Classifies issues by severity. Can edit files to fix issues directly. |
 | **test-engineer** | Sonnet | local | Runs existing tests, analyzes coverage gaps, creates test plans, writes new tests. Launched only when the plan requires new tests. |
-| **redmine-documenter** | Sonnet | — | Write operations in Redmine: updating tasks, adding comments, documenting work, creating issues/subtasks. |
 
-## Commands
+## Skills
 
-| Command | Description |
-|---------|-------------|
-| `/feature <description>` | Sequential pipeline: architect → developer(s) → reviewer → tester (if needed) → redmine |
-| `/bugfix <description>` | Sequential pipeline: debugger → developer(s) → reviewer → tester (if needed) → redmine |
+| Skill | Description |
+|-------|-------------|
+| `/feature <description>` | Sequential pipeline: architect → developer(s) → reviewer → tester (if needed) |
+| `/bugfix <description>` | Sequential pipeline: debugger → developer(s) → reviewer → tester (if needed) |
 | `/feature-team <description>` | Parallel team pipeline: spawns agents as a coordinated team for larger features |
 
 ## Pipelines
@@ -28,17 +27,17 @@ Two pipeline paths depending on the task type:
 
 **New features / significant changes** (`/feature`):
 ```
-solution-architect → backend-developer / frontend-developer → code-reviewer → test-engineer* → redmine-documenter
+solution-architect → backend-developer / frontend-developer → code-reviewer → test-engineer*
 ```
 
 **Bug fixes** (`/bugfix`):
 ```
-debugger → backend-developer / frontend-developer → code-reviewer → test-engineer* → redmine-documenter
+debugger → backend-developer / frontend-developer → code-reviewer → test-engineer*
 ```
 
 \* `test-engineer` is launched only when the architect's plan explicitly requires writing new tests. Existing tests are run by developer agents during implementation.
 
-Each agent passes relevant context to the next (plan file paths, diagnoses, changed file lists, review findings, test results). Steps that don't apply are skipped (e.g., no Redmine step if no issue exists).
+Each agent passes relevant context to the next (plan file paths, diagnoses, changed file lists, review findings, test results). Steps that don't apply are skipped (e.g., no debugger for obvious typos).
 
 ## Installation
 
@@ -78,7 +77,7 @@ cp -r ~/.claude-subagents/agents/ ~/.claude/agents/
 ## Customization
 
 - Agent prompts live in `agents/*.md` and use YAML frontmatter for `name`, `model`, `color`, `memory`, and `description`
-- Pipeline commands live in `commands/*.md` and define the orchestration flow
+- Pipeline skills live in `skills/*/SKILL.md` and define the orchestration flow
 - `CLAUDE.md` defines when each agent is triggered and how context flows between them
 - Agents with `memory: local` persist learned patterns across sessions (conventions, common issues, project-specific knowledge)
 - Adjust models (`opus` / `sonnet`) per agent based on your cost/quality preferences

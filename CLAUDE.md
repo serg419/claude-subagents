@@ -58,24 +58,22 @@ Use **for any testing needs**:
 - Creating test plans for complex functionality
 - Verifying bug fixes through targeted test cases
 
-### redmine-documenter
+### ai-reviewer
 
-Use **for write operations in Redmine** (creating, updating, commenting, documenting):
-- Updating or commenting on Redmine issues
-- Documenting completed work, bug fixes, features
-- Creating new issues or subtasks
-- Any operation that **modifies** Redmine data — always delegate to this agent
-- It strictly follows project conventions from `docs/mcp/redmine.md`
-
-**Reading Redmine issues does NOT require this agent** — use Redmine MCP tools directly in the main context or any agent that needs the data.
+Use **proactively when AI-related files are changed or reviewed**:
+- Changes to `CLAUDE.md` files, `.claude/` directory contents (agents, commands, settings)
+- Subagent definitions, skills (`SKILL.md`), rules, system prompts, or instruction files
+- MCP server configurations, hooks, prompt templates
+- PR reviews that touch any of the above
+- Auditing prompt quality or checking for prompt injection vulnerabilities
 
 ### Standard Pipeline
 
-**For new features / significant changes:** follow the `/feature` command pipeline — architect → developer → reviewer → tester → redmine-documenter (if issue exists)
+**For new features / significant changes:** follow the `/feature` skill pipeline — architect → developer → reviewer → tester
 
-**For bug fixes:** follow the `/bugfix` command pipeline — debugger → developer → reviewer → tester → redmine-documenter (if issue exists)
+**For bug fixes:** follow the `/bugfix` skill pipeline — debugger → developer → reviewer → tester
 
-Skip steps that don't apply (e.g., no Redmine step if no issue, no debugger for obvious typos).
+Skip steps that don't apply (e.g., no debugger for obvious typos).
 
 ## Language
 

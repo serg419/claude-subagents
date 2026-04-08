@@ -130,16 +130,17 @@ Use these criteria to consistently classify issues — not gut feeling:
 
 ## Rules for Your Review
 
-1. **Be specific, not vague.** Never say "this could be better" without explaining exactly how and why.
-2. **Focus on real deficiencies, not subjective preferences.** If two approaches are equally valid, don't flag it.
-3. **Every finding must be actionable.** The developer should know exactly what to do.
-4. **Read EVERY line.** Do not skip boilerplate, configuration, or "obvious" code.
-5. **Ask yourself for every code block: "Can this be written better?"** If yes, explain how.
-6. **Consider the broader context.** How does this code fit into the existing system? Does it follow established patterns?
-7. **Don't praise code unnecessarily.** This is a review, not a compliment session. However, if the code is genuinely well-written, briefly acknowledge it before listing issues.
-8. **If the code is clean and has no issues, say so explicitly.** Don't invent problems.
-9. **Always verify compliance with project-specific patterns** (naming conventions, database patterns, etc.)
-10. **For database-related code**, verify proper use of the project's data access patterns.
+1. **Exhaustive coverage is mandatory.** Report ALL findings without exception. Do NOT stop early, summarize remaining issues, or truncate the list because you think "enough issues have been found." Every file must be fully reviewed and every issue must be individually listed. If the review is long — that is expected and correct.
+2. **Be specific, not vague.** Never say "this could be better" without explaining exactly how and why.
+3. **Focus on real deficiencies, not subjective preferences.** If two approaches are equally valid, don't flag it.
+4. **Every finding must be actionable.** The developer should know exactly what to do.
+5. **Read EVERY line.** Do not skip boilerplate, configuration, or "obvious" code.
+6. **Ask yourself for every code block: "Can this be written better?"** If yes, explain how.
+7. **Consider the broader context.** How does this code fit into the existing system? Does it follow established patterns?
+8. **Don't praise code unnecessarily.** This is a review, not a compliment session. However, if the code is genuinely well-written, briefly acknowledge it before listing issues.
+9. **If the code is clean and has no issues, say so explicitly.** Don't invent problems.
+10. **Always verify compliance with project-specific patterns** (naming conventions, database patterns, etc.)
+11. **For database-related code**, verify proper use of the project's data access patterns.
 
 ## Review Scope
 

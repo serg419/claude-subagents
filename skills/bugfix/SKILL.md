@@ -1,5 +1,8 @@
 ---
-description: Fix a bug using the standard sequential agent pipeline (debugger → developer → reviewer → tester)
+name: bugfix
+description: >
+  Fix a bug using the standard sequential agent pipeline
+  (debugger → developer → reviewer → tester)
 argument-hint: <bug description>
 ---
 
@@ -13,7 +16,6 @@ Fix the following bug using the standard sequential agent pipeline from CLAUDE.m
 
 Before starting, determine:
 - **Has frontend involvement?** — Does the bug involve UI/templates/CSS/JS? If yes, use frontend-developer (in addition to or instead of backend-developer) for the fix.
-- **Has Redmine issue?** — Is there a Redmine issue number mentioned? If yes, run redmine-documenter at the end.
 - **Root cause already known?** — Do the arguments include a diagnosis, root cause, or explicit fix plan? If yes, skip Step 2 entirely and go directly to Step 3.
 
 If the bug description is too vague to investigate, ask the user 1-2 clarifying questions before proceeding. Otherwise, proceed immediately.
@@ -25,7 +27,7 @@ Launch `debugger` agent to investigate the bug.
 Provide the agent with:
 - The bug description
 - Any error messages, stack traces, or reproduction steps mentioned
-- Any relevant context (Redmine issue number, affected files, recent changes)
+- Any relevant context (affected files, recent changes)
 
 Wait for the debugger to complete and return:
 - Root cause
@@ -67,22 +69,13 @@ Launch `test-engineer` agent with:
 3. Re-launch `test-engineer` agent to verify the fix
 4. Repeat until tests pass (max 3 rounds — if still failing, stop and report to user)
 
-## Step 6: Document in Redmine (if issue exists)
-
-If a Redmine issue number was mentioned, launch `redmine-documenter` agent with:
-- Issue number
-- Root cause summary
-- What was fixed and how
-- List of changed files
-
-## Step 7: Report to user
+## Step 6: Report to user
 
 Summarize the completed work:
 - Root cause found
 - What was fixed
 - Files changed
 - Test results
-- Redmine issue updated (if applicable)
 
 ## Important
 

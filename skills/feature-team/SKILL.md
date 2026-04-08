@@ -1,5 +1,8 @@
 ---
-description: Launch a full agent team pipeline for a new feature (architect → backend-developer → reviewer → tester)
+name: feature-team
+description: >
+  Launch a full agent team pipeline for a new feature
+  (architect → backend-developer → reviewer → tester)
 argument-hint: <feature description>
 ---
 
@@ -13,7 +16,6 @@ You are acting as **team lead** for implementing a new feature. Launch a coordin
 
 Before creating the team, determine:
 - **Has frontend work?** — Does this feature involve UI/templates/CSS/JS changes? If yes, include a frontend-developer.
-- **Has Redmine issue?** — Is there a Redmine issue number mentioned? If yes, include a redmine-documenter.
 - **Team name** — Derive a short kebab-case name from the feature description (e.g., "add user avatar uploads" → `user-avatar-uploads`).
 - **Plan already provided?** — Do the arguments include an existing plan file path (e.g. `plans/something.md`) or inline plan content? If yes, skip Steps 2–4 (team creation still happens, but skip the Plan task and architect spawning) and go directly to Step 5 with the provided plan.
 
@@ -32,7 +34,6 @@ Use `TaskCreate` to create tasks. Adjust based on your analysis:
 3. **Implement frontend** — frontend-developer codes the UI (blockedBy: plan, parallel with backend) — *only if frontend work needed*
 4. **Review the implementation** — code-reviewer reviews all changes (blockedBy: backend + frontend)
 5. **Test the result** — test-engineer verifies the implementation (blockedBy: review)
-6. **Document in Redmine** — redmine-documenter updates the issue (blockedBy: test) — *only if Redmine issue exists*
 
 Set up `blockedBy` dependencies between tasks using `TaskUpdate.addBlockedBy`.
 
@@ -97,9 +98,8 @@ This catches problems early and avoids large rework at the final review stage.
   4. When fix is done → shut down backend-dev/frontend-dev, send changes to reviewer for quick re-check, then re-run tester
   5. Repeat until tests pass (max 3 rounds — if still failing, escalate to user)
 - **If tests pass**:
-  1. If Redmine issue exists: spawn `name: "documenter"`, `subagent_type: "redmine-documenter"`, assign **Document** task
-  2. Shut down tester: `shutdown_request`
-  3. Shut down reviewer: `shutdown_request`
+  1. Shut down tester: `shutdown_request`
+  2. Shut down reviewer: `shutdown_request`
 
 ### When all done:
 - Shut down any remaining teammates: `shutdown_request`

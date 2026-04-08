@@ -1,5 +1,8 @@
 ---
-description: Implement a feature using the standard sequential agent pipeline (architect → developer → reviewer → tester)
+name: feature
+description: >
+  Implement a feature using the standard sequential agent pipeline
+  (architect → developer → reviewer → tester)
 argument-hint: <feature description>
 ---
 
@@ -13,7 +16,6 @@ Implement the following feature using the standard sequential agent pipeline fro
 
 Before starting, determine:
 - **Has frontend work?** — Does this feature involve UI/templates/CSS/JS changes? If yes, use frontend-developer (in addition to or instead of backend-developer).
-- **Has Redmine issue?** — Is there a Redmine issue number mentioned? If yes, run redmine-documenter at the end.
 - **Plan already provided?** — Do the arguments include an existing plan file path (e.g. `plans/something.md`) or inline plan content? If yes, skip Step 2 entirely and go directly to Step 3.
 
 If the feature description is too vague to start, ask the user 1-2 clarifying questions before proceeding. Otherwise, proceed immediately.
@@ -25,7 +27,7 @@ Launch `solution-architect` agent to design the implementation approach.
 Provide the agent with:
 - The feature description
 - Whether frontend work is involved
-- Any relevant context (Redmine issue number, existing files, constraints)
+- Any relevant context (existing files, constraints)
 
 Wait for the architect to complete and return the plan file path.
 
@@ -67,20 +69,12 @@ If yes — launch `test-engineer` agent with:
 
 If no — skip this step. Existing tests are already run by the developer agents during implementation.
 
-## Step 6: Document in Redmine (if issue exists)
-
-If a Redmine issue number was mentioned, launch `redmine-documenter` agent with:
-- Issue number
-- Summary of what was implemented
-- List of changed files
-
-## Step 7: Report to user
+## Step 6: Report to user
 
 Summarize the completed work:
 - What was implemented
 - Files changed
 - Test results
-- Redmine issue updated (if applicable)
 
 ## Important
 
